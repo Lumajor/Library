@@ -1,0 +1,49 @@
+h3 {
+    text-align: center;
+}
+
+div#container {
+    margin: auto;
+    width: 55%;
+}
+
+table, th, td  {
+    border: solid black 1px;
+    padding: 5px;
+    background-color: #DCDCDD;
+    border-collapse: collapse;
+}
+
+div.instructions {
+    font-family: impact;
+}
+
+div.insert-book-information {
+    display: grid;
+    grid-template-columns: 180px 180px 180px 181px;
+    font-family: impact;
+}
+
+div.book-inputs input {
+    width: 155px;
+}
+
+select {
+    margin-left: 58px;
+}
+
+button.delete-buttons {
+    width: 83px;
+    background-color: #1985A1;
+    color: white;
+}
+
+button#insert-book {
+    background-color: #4C5C68;
+    color: white;
+}
+
+body {
+    background-color: #C5C3C6;
+    font-family: Tahoma, Geneva, sans-serif;
+}
