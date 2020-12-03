@@ -12,13 +12,15 @@ const bookPage = document.getElementById("book-page-input");
 const bookRead = document.getElementById("book-read-input");
 
 let myLibrary = [];
+/*Holds Book's position in array*/
 let arrayCounter = 0;
 
-function Book(name, author, pages, read) {
+function Book(name, author, pages, read, position) {
     this.name = name;
     this.author = author;
     this.pages = pages;
     this.read = read;
+    this.position = position;
 }
 
 function addBookToLibrary(Book) {
@@ -30,6 +32,19 @@ addBookToLibrary(theHobbit);
 
 const whiteIsForWitching = new Book("White Is For Witching", "Helen Oyemi", 255, "yes");
 addBookToLibrary(whiteIsForWitching);
+
+Book.prototype.remove = function() {
+    myLibrary.splice(this.position, 1);
+}
+
+Book.prototype.updateRead = function() {
+    if (this.read == "yes") {
+        this.read = "no";
+    }
+    else {
+        this.read = "yes";
+    }
+}
 
 function insertHeader() {
     let tableHeader = document.createElement('tr');
@@ -65,13 +80,14 @@ function insertRow(Book) {
     bookAuthor.innerHTML = Book.author;
     bookPage.innerHTML = Book.pages;
     if (Book.read == "yes") {
-        bookRead.innerHTML = "Yes";
+        bookRead.innerHTML = "<button class='read-buttons' id='read-book-" + arrayCounter.toString() + "'>Yes</button>";
     }
     else {
-        bookRead.innerHTML = "No";
+        bookRead.innerHTML = "<button class='read-buttons' id='read-book-" + arrayCounter.toString() + "'>No</button>";
     }
     /* assign ID to delete button based on the global counter to keep track of button's ID related to position in array */
     bookDelete.innerHTML = "<button class='delete-buttons' id='delete-book-" + arrayCounter.toString() + "'>Delete</button>"
+    Book.position = arrayCounter;
     arrayCounter++;
 
     bookTable.appendChild(tableRow);
@@ -109,8 +125,16 @@ pageContainer.addEventListener("click", function(e) {
         } 
     }
     if (e.target.matches(".delete-buttons")) {
-        /*get the ID of the button*/
-        myLibrary.splice(e.target.id.substring(12, e.target.id.length),1);
+        /*access the book in the array according to it's ID in the DOM, and runs the remove method on it.
+        sets the array counter back to 0, and recreates the table.*/
+        myLibrary[e.target.id.substring(12, e.target.id.length)].remove()
+        arrayCounter = 0;
+        createTable();
+    }
+    if (e.target.matches(".read-buttons")) {
+        /*access the book in the array according to it's ID in the DOM, and runs the remove method on it.
+        sets the array counter back to 0, and recreates the table.*/
+        myLibrary[e.target.id.substring(10, e.target.id.length)].updateRead()
         arrayCounter = 0;
         createTable();
     }
@@ -118,4 +142,4 @@ pageContainer.addEventListener("click", function(e) {
 
 document.addEventListener('DOMContentLoaded', function() {
     createTable();
-})
+});
