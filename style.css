@@ -43,7 +43,15 @@ button#insert-book {
     color: white;
 }
 
+button.read-buttons {
+    width: 83px;
+    background-color: #1985A1;
+    color: white;
+    margin-left: 58px;
+}
+
 body {
     background-color: #C5C3C6;
     font-family: Tahoma, Geneva, sans-serif;
 }
+
