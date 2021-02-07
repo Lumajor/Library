@@ -1,63 +1,148 @@
 <html>
+
     <head>
         <title>Library</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <div class="head">
-            <h3>Virtual Library Project</h3> 
         </div>
     </head>
+    
     <body>
-        <div id="container">
-            <table id="book-table">
-            </table>
-            <div class="instructions">
-                <p>Enter information to insert a new book.</p>
+
+        <!-- NAVBAR -->
+        <nav class="z-depth-0 grey lighten-4" style="margin-bottom: 20px;">
+            <div class="nav-wrapper container">
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li class="logged-in-header" style="display: none;">
+                    <a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
+                </li>
+                <li class="logged-in-header" style="display: none;">
+                    <a href="#" class="grey-text" id="logout">Logout</a>
+                </li>
+                <li class="logged-in-header" style="display: none;">
+                    <a href="#" class="grey-text modal-trigger" data-target="modal-insert">Insert Book</a>
+                </li>
+                <li class="logged-out-header" style="display: none;">
+                    <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
+                </li>
+                <li class="logged-out-header" style="display: none;">
+                    <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
+                </li>
+            </ul>
             </div>
-            <div class="insert-book-information">
-                <div class="book-inputs">
-                    <p>Book's Name</p>
-                    <input id="book-name-input"></input>
+        </nav>
+
+         <!-- SIGN UP MODAL -->
+        <div id="modal-signup" class="modal">
+            <div class="modal-content">
+            <h4>Sign up</h4><br />
+            <form id="signup-form">
+                    <div class="input-field">
+                    <input type="email" id="signup-email" required />
+                    <label for="signup-email">Email address</label>
                 </div>
-                <div class="book-inputs">
-                    <p>Book's Author</p>
-                    <input id="book-author-input">
+                <div class="input-field">
+                    <input type="password" id="signup-password" required />
+                    <label for="signup-password">Choose password</label>
                 </div>
-                <div class="book-inputs">
-                    <p>Book's Pages</p>
-                    <input id="book-page-input">
+                <div class="input-field">
+                    <input type="text" id="signup-bio" required />
+                    <label for="signup-bio">One Line Bio</label>
+                  </div>
+                <button class="btn yellow darken-2 z-depth-0">Sign up</button>
+            </form>
+            </div>
+        </div>
+
+        <!-- LOGIN MODAL -->
+        <div id="modal-login" class="modal">
+            <div class="modal-content">
+            <h4>Login</h4><br />
+            <form id="login-form">
+                <div class="input-field">
+                    <input type="email" id="login-email" required />
+                    <label for="login-email">Email address</label>
                 </div>
-                <div class="book-inputs">
-                    <p>Has the book been Read?</p> 
-                    <select id="book-read-input">
+                <div class="input-field">
+                    <input type="password" id="login-password" required />
+                    <label for="login-password">Your password</label>
+                </div>
+                <button class="btn yellow darken-2 z-depth-0">Login</button>
+            </form>
+            </div>
+        </div>
+
+        <!-- ACCOUNT MODAL -->
+        <div id="modal-account" class="modal">
+            <div class="modal-content center-align">
+            <h4>Account details</h4><br />
+            <div class="account-details"></div>
+            </div>
+        </div>
+
+
+        <!-- INSERT BOOK MODAL -->
+        <div id="modal-insert" class="modal">
+            <div class="modal-content">
+            <h4>Insert Book</h4><br />
+            <form id="insert-form">
+                <div class="input-field">
+                    <input type="text" id="author" required>
+                    <label for="author">Book's Author</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="name" required>
+                    <label for="name">Book's Name</label>
+                </div>
+                <div class="input-field">
+                    <input type="number" id="pages" required>
+                    <label for="pages">Book's Pages</label>
+                </div>
+                <div class="input-field">
+                    <select id='read'>
+                        <option value="" disabled selected>-</option>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                     </select>
+                    <label>Has the book been read?</label>
                 </div>
-            </div>
-            <div class="button">
-                <br/>
-                <button id="insert-book">Submit.</button>
+                <button class="btn yellow darken-2 z-depth-0">Insert Book</button>
+            </form>
             </div>
         </div>
-    
-        <!-- information to implement firebase later-
-        <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-firestore.js"></script>
 
         <script>
-            // Your web app's Firebase configuration
-            var firebaseConfig = {
-              apiKey: "AIzaSyCRswDd0IRSoYoIXIJvB1E6RC2inJ3aguA",
-              authDomain: "virtual-library-46c31.firebaseapp.com",
-              projectId: "virtual-library-46c31",
-              storageBucket: "virtual-library-46c31.appspot.com",
-              messagingSenderId: "916119151431",
-              appId: "1:916119151431:web:598108670c931149bea262"
-            };
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyAeYreRx5sZDekWxodYwiM3jG-B5i1-pdE",
+            authDomain: "virtual-library-b5c59.firebaseapp.com",
+            projectId: "virtual-library-b5c59",
+            storageBucket: "virtual-library-b5c59.appspot.com",
+            messagingSenderId: "968723093664",
+            appId: "1:968723093664:web:820994e815f3486ea411c5"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        //references
+        const auth = firebase.auth();
+        const db = firebase.firestore();
         </script>
-        -->
+
+        <!-- TABLE -->
+        <div id="container">
+            <table id="book-table">
+            </table>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="scripts/auth.js"></script>
+        <script src="scripts/index.js"></script>
+
     </body>
 </html>
-
-
-<script type="text/javascript" src="javascript.js"></script>
