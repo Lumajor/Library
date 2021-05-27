@@ -60,3 +60,12 @@ body {
     overflow: hidden;
   }
 
+#signupErrorMessageContainer {
+    display: none;
+    color: red;
+}
+
+#loginErrorMessageContainer {
+    display: none;
+    color: red;
+}

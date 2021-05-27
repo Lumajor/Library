@@ -49,7 +49,10 @@
                 <div class="input-field">
                     <input type="text" id="signup-bio" required />
                     <label for="signup-bio">One Line Bio</label>
-                  </div>
+                </div>
+                <div id="signupErrorMessageContainer">
+                    <p id="signupErrorMessageDisplay">error message</p>
+                </div>
                 <button class="btn yellow darken-2 z-depth-0">Sign up</button>
             </form>
             </div>
@@ -67,6 +70,9 @@
                 <div class="input-field">
                     <input type="password" id="login-password" required />
                     <label for="login-password">Your password</label>
+                </div>
+                <div id="loginErrorMessageContainer">
+                    <p id="loginErrorMessageDisplay">error message</p>
                 </div>
                 <button class="btn yellow darken-2 z-depth-0">Login</button>
             </form>
@@ -119,7 +125,7 @@
         <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
-            apiKey: "AIzaSyAeYreRx5sZDekWxodYwiM3jG-B5i1-pdE",
+            apiKey: "AIzaSyDL9oATBzKdIdpAOuuI2VNZLEUeL1lywPE",
             authDomain: "virtual-library-b5c59.firebaseapp.com",
             projectId: "virtual-library-b5c59",
             storageBucket: "virtual-library-b5c59.appspot.com",

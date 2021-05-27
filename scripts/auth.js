@@ -17,6 +17,7 @@ auth.onAuthStateChanged(user =>  {
 const signupForm = document.querySelector("#signup-form");
 signupForm.addEventListener("submit", (e) => {
     e.preventDefault();
+    document.getElementById('signupErrorMessageContainer').style.display = 'none';
 
     // get user info
     const email = signupForm["signup-email"].value;
@@ -35,6 +36,8 @@ signupForm.addEventListener("submit", (e) => {
         var errorCode = error.code;
         var errorMessage = error.message;
         console.log('error: ', errorMessage);
+        document.getElementById('signupErrorMessageContainer').style.display = 'block';
+        signupErrorMessageDisplay.innerText = errorMessage;
     });
 });
 
@@ -49,6 +52,7 @@ logout.addEventListener("click", (e) => {
 const loginForm = document.querySelector("#login-form");
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
+    document.getElementById('signupErrorMessageContainer').style.display = 'none';
 
     //get user info
     const email = loginForm["login-email"].value;
@@ -63,6 +67,8 @@ loginForm.addEventListener("submit", (e) => {
         var errorCode = error.code;
         var errorMessage = error.message;
         console.log('error: ', errorMessage);
+        document.getElementById('loginErrorMessageContainer').style.display = 'block';
+        loginErrorMessageDisplay.innerText = errorMessage;
     });
 });
 
